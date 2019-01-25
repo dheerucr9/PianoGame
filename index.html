@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Gamedev Phaser Workshop - lesson 01: Initialize the framework</title>
-    <style>* { padding: 0; margin: 0; }</style>
-    <script src="js/phaser.min.js"></script>
-</head>
-<body>
-<script>
-    var game = new Phaser.Game(480, 320, Phaser.CANVAS, null, {
-      preload: preload, create: create, update: update
-    });
-    function preload() {}
-    function create() {}
-    function update() {}
-</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Piano Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/validate.js"></script>
+  </head>
+  <body>
+    <h2>Please Enter Your Participant ID:</h2>
+    <h4>The format for your pariticipant ID: First Initial + Last Initial + <br>
+      Last 2 digits of birth year + Last 4 digits of your cell phone <br>
+      number.
+    </h4>
+    <br><br>
+    <h4>Example: John Smith was born in 1990, and his phone<br>
+      number is 123-456-7890. So his ID would be JS907890.
+    </h4>
+    <br><br>
+    <form>
+      ID: <input type="text" name="id"  id="id" value="" placeholder="JS907890" required><input type="button" name="submit" value="Enter" onclick="ValidateID()">
+    </form>
+  </body>
 </html>
