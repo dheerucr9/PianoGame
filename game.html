@@ -7,9 +7,15 @@
     <script src="js/script.js"></script>
 </head>
 <body>
-  <div class="center">
+
+  <div id="instructions">
+    <p id="instr_text"></p>
+    <input id="next" type="button" value="NEXT" onclick="Flow()">
+  </div>
+
+  <div class="pianoHands" id="pianoHands">
     <img id = "img1" src="img/left.png">
-    <svg class="piano" height="600" width="1000">
+    <svg id = "keyboard" class="piano" height="600" width="1000">
       <polygon points="335,200 365,200 365,300 380,300 380,420 335,420 335,200" class="white" id="one"/>
       <polygon points="380,300 395,300 395,200 410,200 410,300 425,300 425,420 380,420 380,300" class="white" id="two"/>
       <polygon points="425,200 440,300 440,200 455,200 455,300 470,300 470,420 425,420 425,300" class="white" id="three"/>

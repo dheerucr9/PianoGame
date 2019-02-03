@@ -5,7 +5,7 @@ function ValidateID() {
   if (pattern.test(id)) {
     window.location.href = "game.html";
   } else {
-    alert("Works and Valid ID!");
+    alert("Enter a Valid ID!");
   }
 
   //alert(pattern.exec(id));
