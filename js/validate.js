@@ -3,7 +3,9 @@ function ValidateID() {
   var id = document.getElementById("id").value;
   id = id.toUpperCase();
   if (pattern.test(id)) {
-    window.location.href = "game.html";
+    sessionStorage.setItem('ID', id);
+    var path = window.location.pathname;
+    window.location.href = "game" + path.charAt(path.length-6) + ".html";
   } else {
     alert("Enter a Valid ID!");
   }
