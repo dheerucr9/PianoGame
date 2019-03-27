@@ -9,6 +9,15 @@
   margin-left: 10%;
 }
 
+#comp_board {
+  margin-top: -100px;
+  margin-bottom: -100px;
+  margin-left: 500px;
+  height: 200px;
+  width: 400px;
+
+}
+
 .pianoHands img {
   padding-top: 100px;
   height: 200px;
@@ -18,7 +27,6 @@
 #img1{
   margin-left: 100px;
   margin-right: -175px;
-
   float: left;
 }
 
@@ -51,12 +59,12 @@ body {
   margin-top: 100px;
   margin-left: 30px;
   margin-right: 30px;
-  font-size: 40px;
+  font-size: 35px;
   font-family: monospace;
 }
 
 #instructions input {
-  font-size: 25px;
+  font-size: 20px;
   height: 70px;
   width: 200px;
   background-color: #4472C4;

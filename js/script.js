@@ -3,7 +3,7 @@ window.addEventListener("keyup", (e) => KeyUnpressed(e.key));
 
 var keys, pianoHands;
 var instructions, instr_txt, keyboard, left, right, next, temp_counter, audio, sequence, temp_sequence, timer, timerText, run, currState, RTflag, t, timerFlag, timedPracticeFlag, instructionTrialFlag, PressNextKeyFlag, tooSlowFlag, plusFlag, locked;
-var startTime, EndTime, reactionTimes, corr_incorr, count, cycles, corr_incorr_array, reactionTimes_array, id, data, game_num;
+var startTime, EndTime, reactionTimes, corr_incorr, count, cycles, corr_incorr_array, reactionTimes_array, id, data, game_num, instructionSet, comp_board;
 window.onload = function() {
   keys = {
     "1" : document.getElementById("one"),
@@ -20,7 +20,7 @@ window.onload = function() {
   var path = window.location.pathname;
   game_num = path.charAt(path.length-6);
   // console.log(game_num);
-  currState = 33;
+  currState = 0;
   run = 1;
   timerFlag = false;
   pianoHands = document.getElementById("pianoHands");
@@ -50,6 +50,15 @@ window.onload = function() {
   reactionTimes_array = [];
   // PressNextKeyFlag = False;
   aud_files = "cdefgab";              //    Audio files downloaded from "https://freesound.org/people/Tesabob2001/packs/12995/"
+  instructionSet = {"1":["For the next 90 seconds, focus on how your left hand fingers feel while you play the melody.",
+                       "For the next 90 seconds, focus on how your right hand fingers feel while you play the melody.",
+                       "For the next 90 seconds, focus on how your right middle finger feels while you play the melody.",
+                       "For the next 90 seconds, focus on how your left middle finger feels while you play the melody."],
+                    "2":["For the next 90 seconds, focus on how your left hand fingers feel while you play the melody.",
+                       "For the next 90 seconds, focus on how your right hand fingers feel while you play the melody.",
+                       "For the next 90 seconds, focus on how your right middle finger feels while you play the melody.",
+                       "For the next 90 seconds, focus on how your left middle finger feels while you play the melody."]};
+  comp_board = document.getElementById('comp_board');
   for(var i = 0; i < 10; i++) {
     if (i < 4)
       temp = new Audio("audio/" + aud_files[i] + "3.mp3");
@@ -77,10 +86,11 @@ function KeyPressed(key) {
               keys[key].style.fill = "lightblue";
               keys[key].style.stroke = "lightblue";
               keys[key].style.outline =  "black solid 1px";
-              if (key == "0")
-                audio[9].play();
-              else
-                audio[Number(key)-1].play();
+              // if (key == "0")
+              //   audio[9].play();
+              // else
+              //   audio[Number(key)-1].play();
+              playMusic(key);
               instr_txt.innerHTML += ("<b>CORRECT</b>");
               corr_incorr.push("+");
 
@@ -88,10 +98,11 @@ function KeyPressed(key) {
               keys[key].style.fill = "red";
               keys[key].style.stroke = "red";
               keys[key].style.outline =  "black solid 1px";
-              if (key == "0")
-                audio[9].play();
-              else
-                audio[Number(key)-1].play();
+              // if (key == "0")
+              //   audio[9].play();
+              // else
+              //   audio[Number(key)-1].play();
+              playMusic(key);
               instr_txt.innerHTML += ("<b>INCORRECT</b>");
               corr_incorr.push("-");
             }
@@ -138,10 +149,11 @@ function KeyPressed(key) {
       keys[key].style.fill = "lightblue";
       keys[key].style.stroke = "lightblue";
       keys[key].style.outline =  "black solid 1px";
-      if (key == "0")
-        audio[9].play();
-      else
-        audio[Number(key)-1].play();
+      // if (key == "0")
+      //   audio[9].play();
+      // else
+      //   audio[Number(key)-1].play();
+      playMusic(key);
       if (key != temp_sequence[temp_sequence.length-1]) {
         temp_counter += 1;
         instr_txt.innerHTML += ("<b>" + key+"-</b>");
@@ -167,10 +179,11 @@ function KeyPressed(key) {
       keys[key].style.fill = "red";
       keys[key].style.stroke = "red";
       keys[key].style.outline =  "black solid 1px";
-      if (key == "0")
-        audio[9].play();
-      else
-        audio[Number(key)-1].play();
+      // if (key == "0")
+      //   audio[9].play();
+      // else
+      //   audio[Number(key)-1].play();
+      playMusic(key);
       }
   }
 }
@@ -200,31 +213,43 @@ function Flow() {
   switch (currState) {
     case 0:
       hide(next);
+      hide(comp_board);
       setTimeout(() => {
-        instr_txt.innerHTML += "Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 5000);
       break;
     case 1:
-      instr_txt.innerHTML = "To play the virtual piano in this game, you will place your left hand fingers on the 1, 2, 3, 4 keyboard keys and your right hand fingers on 7, 8, 9, 0.";
+      instr_txt.innerHTML = "To play the virtual piano, you will place your left hand fingers on the 1,2,3,4 keyboard keys and your right hand fingers on 7,8,9,0.";
+      show(comp_board);
       show(pianoHands);
       hide(keyboard)
       hide(next);
+      instr_txt.style.marginTop = "-10px";
+      next.style.marginTop = "-10px";
+      comp_board.style.marginTop = "-100px";
+      pianoHands.style.marginTop = "-100px";
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 10000);
       break;
     case 2:
-      instr_txt.innerHTML = "It is important that your fingers are placed on the correct keyboard keys and you only play the keyboard keys with these fingers.<br>See the numbers on the hands.<br>Press SPACEBAR to continue";
-      show(next)
-      currState += 1
+      hide(next);
+      instr_txt.innerHTML = "Please take a moment to place your fingers on the correct keyboard keys.<br><br>You must only play the keyboard keys with these fingers.";
+      setTimeout(() => {
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
+        show(next);
+        currState += 1;
+      }, 10000);
       break;
     case 3:
-      instr_txt.innerHTML = "First we will do two practice trials to get comfortable with the keyboard piano.<br>Press SPACEBAR to continue";
-      // show(next)
+      hide(comp_board);
+      instr_txt.innerHTML = "Let’s practice to get comfortable with the keyboard piano.<br><br>Press SPACEBAR to continue";
+      instr_txt.style.marginTop = "100px";
+      next.style.marginTop = "10px";
       hide(pianoHands);
       currState += 1
       break;
@@ -233,7 +258,7 @@ function Flow() {
       show(keyboard);
       hide(next);
       temp_sequence = sequence[0];
-      instr_txt.innerHTML = "Remember to only use the fingers that correspond the numbers on the keyboard.<br>Play the following melody 2 times in a row:<br>";
+      instr_txt.innerHTML = "Play this melody twice using the correct fingers.<br>";
       for (num in temp_sequence) {
         instr_txt.innerHTML += temp_sequence[num];
         if (num != temp_sequence.length - 1)
@@ -249,16 +274,17 @@ function Flow() {
 
       break;
     case 5:
-      instr_txt.innerHTML = "Great, now you will practice playing the melody for 90 seconds.<br>Click SPACEBAR to continue";
+      instr_txt.innerHTML = "Great, now you will practice playing the melody as many times as you can for 90 seconds.";
       hide(pianoHands);
       setTimeout(() => {
+        instr_txt.innerHTML += "<br><br>Click SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 6000);
       break;
     case 6:
       temp_sequence = sequence[0];
-      instr_txt.innerHTML = "Let’s practice!<br>Play the following melody:<br>";
+      instr_txt.innerHTML = "";
       for (num in temp_sequence) {
         instr_txt.innerHTML += temp_sequence[num];
         if (num != temp_sequence.length - 1)
@@ -275,31 +301,31 @@ function Flow() {
         hide(next);
         show(timer);
         instructionTrialFlag = true;
-        setTimer(20000);
-        // setTimer(90000);
+        // setTimer(20000);
+        setTimer(90000);
       }
       break;
     case 7:
       hide(timer)
-      instr_txt.innerHTML = "Now we will test your knowledge of the melody sequence and ask you a few questions about your experience";
+      instr_txt.innerHTML = "Now we will test your knowledge of the melody.";
       hide(pianoHands);
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 6000);
       break;
     case 8:
-      instr_txt.innerHTML = "In this task, you will see a number from the melody sequence and hear its corresponding sound.Your job is to press the next number from the sequence as quickly as possible.";
+      instr_txt.innerHTML = "To do this, you will briefly see and hear a number from the melody sequence you have been playing.<br><br>Your job is to press the next number from the melody sequence <b>as quickly as possible.</b>";
       hide(next);
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 10000);
       break;
     case 9:
-      instr_txt.innerHTML = "Let’s do 2 practice trials before we start the test.In the melody, 4 comes after 8, so when you see 8 try to press 4 as quickly as possible with the correct finger.<br>Press SPACEBAR to continue";
+      instr_txt.innerHTML = "For example, if you see a 4, you must press 8 as quickly as possible with the correct finger.<br><br>Let’s practice!<br><br>Press SPACEBAR to continue";
       show(next);
       currState += 1;
       break;
@@ -342,11 +368,12 @@ function Flow() {
       }, 3000);
       if(temp_counter <= temp_sequence.length - 1) {
         instr_txt.innerHTML = ""+ prev_sequence[0][temp_counter] + "<br>";
+        playMusic(prev_sequence[0][temp_counter])
         // startTime = new Date();
       }
       break;
     case 13:
-      instr_txt.innerHTML = "Great, now that you know what to do, let’s begin the test.Remember to press the correct next number in the melody sequence as fast as you can.<br>Press SPACEBAR to continue";
+      instr_txt.innerHTML = "Great, now that you know what to do, let’s begin the test.<br><br>Remember to press the correct <b>next</b> number in the melody sequence as fast as you can.<br><br>Press SPACEBAR to continue";
       hide(pianoHands);
       show(next);
       currState += 1;
@@ -391,6 +418,7 @@ function Flow() {
       }, 3000);
       if(temp_counter <= temp_sequence.length - 1) {
         instr_txt.innerHTML = ""+ prev_sequence[1][temp_counter] + "<br>";
+        playMusic(prev_sequence[1][temp_counter])
         startTime = new Date();
       }
 
@@ -413,12 +441,12 @@ function Flow() {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 10000);
       break;
     case 19:
       hide(next);
       RTflag = false;
-      instr_txt.innerHTML = "For the next 90 seconds, focus on how your left hand feels while you play the melody.";
+      instr_txt.innerHTML = instructionSet[game_num][0];
       // currState += 1;
       timedPracticeFlag = true;
       instructionTrialFlag = true;
@@ -427,7 +455,7 @@ function Flow() {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
-      }, 1000);
+      }, 6000);
       break;
     case 20:
       temp_sequence = sequence[0];
@@ -447,17 +475,17 @@ function Flow() {
         show(pianoHands);
         hide(next);
         show(timer);
-        setTimer(20000);
+        setTimer(90000);
       }
       break;
     case 21:
       cycles.push(count);
       count = 0;
       hide(timer)
-      instr_txt.innerHTML = "For the next 90 seconds, focus on how your right index finger feels while you play the melody.";
+      instr_txt.innerHTML = instructionSet[game_num][1];
       hide(pianoHands);
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
       }, 1000);
@@ -480,7 +508,7 @@ function Flow() {
         show(pianoHands);
         hide(next);
         show(timer);
-        setTimer(20000);
+        setTimer(90000);
       }
       break;
     case 23:
@@ -488,7 +516,7 @@ function Flow() {
       count = 0;
       hide(timer);
       hide(pianoHands);
-      instr_txt.innerHTML = "For the next 90 seconds, focus on how your left hand feels while you play the melody.";
+      instr_txt.innerHTML = instructionSet[game_num][2];
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
@@ -513,17 +541,17 @@ function Flow() {
         show(pianoHands);
         hide(next);
         show(timer);
-        setTimer(20000);
+        setTimer(90000);
       }
       break;
     case 25:
       cycles.push(count);
       count = 0;
       hide(timer)
-      instr_txt.innerHTML = "For the next 90 seconds, focus on how your right index finger feels while you play the melody.";
+      instr_txt.innerHTML = instructionSet[game_num][3];
       hide(pianoHands);
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
       }, 1000);
@@ -546,7 +574,7 @@ function Flow() {
         show(pianoHands);
         hide(next);
         show(timer);
-        setTimer(20000);
+        setTimer(90000);
       }
       break;
     case 27:
@@ -556,7 +584,7 @@ function Flow() {
       instr_txt.innerHTML = "To complete the study, you will take a final test of how well you know the melody and answer final questions.";
       hide(pianoHands);
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
       }, 1000);
@@ -566,7 +594,7 @@ function Flow() {
       hide(next);
       instr_txt.innerHTML = "Remember, this is the same test that you completed before.<br>Remember to press the correct next number in the melody sequence as fast as possible.";
       setTimeout(() => {
-        instr_txt.innerHTML += "<br>Press SPACEBAR to continue";
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
         currState += 1;
       }, 1000);
@@ -614,6 +642,7 @@ function Flow() {
       if(temp_counter <= temp_sequence.length - 1) {
         startTime = new Date();
         instr_txt.innerHTML = ""+ prev_sequence[1][temp_counter] + "<br>";
+        playMusic(prev_sequence[1][temp_counter])
       }
       break;
     case 32:
@@ -666,4 +695,11 @@ function timeup(x) {
   } else {
     Flow();
   }
+}
+
+function playMusic(key) {
+  if (key == "0")
+    audio[9].play();
+  else
+    audio[Number(key)-1].play();
 }
