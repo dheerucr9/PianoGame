@@ -1,0 +1,57 @@
+body, #center {
+  text-align: center;
+  text-align: -moz-center;
+}
+
+#comp_board {
+  height: 200px;
+  width: 440px;
+
+}
+
+#img1, #img2 {
+  height: 160px;
+  width: 160px;
+  display: none;
+}
+
+#keyboard {
+  display: none;
+  margin-top: -200px;
+}
+
+.white {
+fill:white;
+stroke:black;
+stroke-width:1;
+cursor:pointer;
+margin:2px;
+}
+
+.black {
+fill:black;
+stroke-width:1;
+cursor:pointer;
+margin:2px;
+}
+
+
+#instructions p {
+  font-size: 35px;
+}
+
+#instructions input {
+  font-size: 20px;
+}
+
+#timer {
+  display: none;
+  width: 100px;
+  height: 100px;
+  float: right;
+  border-radius: 50%;
+  background: rgb(72, 160, 181);
+  color: white;
+  font-size: 25px;
+  line-height: 25px;
+}
