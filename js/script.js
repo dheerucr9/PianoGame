@@ -150,10 +150,6 @@ function KeyPressed(key) {
       keys[key].style.fill = "lightblue";
       keys[key].style.stroke = "lightblue";
       keys[key].style.outline =  "black solid 1px";
-      // if (key == "0")
-      //   audio[9].play();
-      // else
-      //   audio[Number(key)-1].play();
       playMusic(key);
       if (key != temp_sequence[temp_sequence.length-1]) {
         temp_counter += 1;
@@ -252,10 +248,14 @@ function Flow() {
       hide(comp_board);
       hide(left);
       hide(right);
-      instr_txt.innerHTML = "Let’s practice to get comfortable with the keyboard piano.<br><br>Press SPACEBAR to continue";
-      spaceLocked = false;
-      hide(pianoHands);
-      currState += 1
+      hide(next);
+      instr_txt.innerHTML = "Let’s practice to get comfortable with the keyboard piano.";
+      setTimeout(() => {
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
+        show(next);
+        spaceLocked = false;
+        currState += 1;
+      }, 10000);
       break;
     case 4:
       show(pianoHands);
@@ -272,12 +272,11 @@ function Flow() {
         else
           instr_txt.innerHTML += "<br>";
       }
-
       temp_counter = 0;
-
       break;
     case 5:
       instr_txt.innerHTML = "Great, now you will practice playing the melody as many times as you can for 90 seconds.";
+      temp_counter = undefined;
       hide(left);
       hide(right);
       hide(keyboard);
@@ -306,12 +305,12 @@ function Flow() {
         hide(next);
         show(timer);
         instructionTrialFlag = true;
-        // setTimer(20000);
         setTimer(90000);
       }
       break;
     case 7:
-      hide(timer)
+      temp_counter = undefined;
+      hide(timer);
       instr_txt.innerHTML = "Now we will test your knowledge of the melody.";
       hide(left);
       hide(right);
@@ -334,10 +333,14 @@ function Flow() {
       }, 10000);
       break;
     case 9:
-      instr_txt.innerHTML = "Let's try an example.<br>If you see a 0, you must press 2 as quickly as possible with the correct finger.<br><br>Let’s practice!<br><br>Press SPACEBAR to continue";
-      show(next);
-      spaceLocked = false;
-      currState += 1;
+      hide(next);
+      instr_txt.innerHTML = "Let's try an example.<br>If you see a 0, you must press 2 as quickly as possible with the correct finger.<br><br>Let’s practice!";
+      setTimeout(() => {
+        instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
+        show(next);
+        spaceLocked = false;
+        currState += 1;
+      }, 5000);
       break;
     case 10:
       show(left);
@@ -370,18 +373,16 @@ function Flow() {
             Flow();
           }, 2000);
           if(temp_counter <= temp_sequence.length - 1) {
-            // EndTime = new Date();
-            // reactionTimes.push(EndTime - startTime);
             instr_txt.innerHTML = "TOO SLOW<br>";
           }
       }, 3000);
       if(temp_counter <= temp_sequence.length - 1) {
         instr_txt.innerHTML = ""+ prev_sequence[0][temp_counter] + "<br>";
         playMusic(prev_sequence[0][temp_counter])
-        // startTime = new Date();
       }
       break;
     case 13:
+      temp_counter = undefined;
       instr_txt.innerHTML = "Great, now that you know what to do, let’s begin the test.<br><br>Remember to press the correct <b>next</b> number in the melody sequence as fast as you can.";
       hide(left);
       hide(right);
@@ -424,7 +425,6 @@ function Flow() {
             Flow();
           }, 2000);
           if(temp_counter <= temp_sequence.length - 1) {
-            // EndTime = new Date();
             reactionTimes.push(-1);
             instr_txt.innerHTML = "TOO SLOW<br>";
             corr_incorr.push("0");
@@ -435,11 +435,11 @@ function Flow() {
         playMusic(prev_sequence[1][temp_counter])
         startTime = new Date();
       }
-
       break;
     case 17:
       corr_incorr_array.push(corr_incorr);
       reactionTimes_array.push(reactionTimes);
+      temp_counter = undefined;
       hide(left);
       hide(right);
       hide(keyboard);
@@ -503,6 +503,7 @@ function Flow() {
       hide(left);
       hide(right);
       hide(keyboard);
+      temp_counter = undefined;
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
@@ -537,6 +538,7 @@ function Flow() {
       hide(left);
       hide(right);
       hide(keyboard);
+      temp_counter = undefined;
       instr_txt.innerHTML = instructionSet[game_num][2];
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
@@ -573,6 +575,7 @@ function Flow() {
       hide(left);
       hide(right);
       hide(keyboard);
+      temp_counter = undefined;
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
@@ -602,12 +605,12 @@ function Flow() {
       break;
     case 27:
       cycles.push(count);
-    // count = 0;
       hide(timer)
       instr_txt.innerHTML = "To complete the study, you will take a final test of how well you know the melody and answer final questions.";
       hide(left);
       hide(right);
       hide(keyboard);
+      temp_counter = undefined;
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
@@ -677,7 +680,8 @@ function Flow() {
       hide(left);
       hide(right);
       hide(keyboard);
-      instr_txt.innerHTML = "Final questions:<br><a href = 'https://usc.qualtrics.com/jfe/form/SV_cN5DDP8tG8ujHAp' target = '_blank'>Click on this link for the final survey</a><br><br>Press SPACEBAR to continue";
+      temp_counter = undefined;
+      instr_txt.innerHTML = "Final questions:<br><a href = 'https://usc.qualtrics.com/jfe/form/SV_cN5DDP8tG8ujHAp' target = '_blank'>Click on this link for the final survey</a>";
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
