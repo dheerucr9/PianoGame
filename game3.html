@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Piano Game</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="js/script2.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <div class="row">
+      <div class="col align-self-end mt-md-2">
+        <div id="timer"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col align-self-center center" id="instructions">
+        <p id="instr_text">You are going to learn how to play a melody on a virtual piano</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col align-self-center center mt-md-n4 mb-md-2">
+        <input id="next" type="button" class="btn btn-primary" value="SPACEBAR" onclick="Flow()">
+      </div>
+    </div>
+
+    <div class="row mb-md-5">
+      <div class="col align-self-center center" id="pianoHands">
+          <img id = "comp_board" src="img/computer-keyboard.jpg">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col align-self-center ml-md-n5 center">
+          <svg id = "keyboard" class="piano" height="500" width="1000">
+            <polygon points="335,200 365,200 365,300 380,300 380,420 335,420 335,200" class="white" id="one"/>
+            <polygon points="380,300 395,300 395,200 410,200 410,300 425,300 425,420 380,420 380,300" class="white" id="two"/>
+            <polygon points="425,200 440,300 440,200 455,200 455,300 470,300 470,420 425,420 425,300" class="white" id="three"/>
+            <polygon points="470,300 485,300 485,200 515,200 515,420 470,420 470,300" class="white" id="four"/>
+            <polygon points="515,200 545,200 545,300 560,300 560,420 515,420 515,200" class="white"/>
+            <polygon points="560,300 575,300 575,200 590,200 590,300 605,300 605,420 560,420" class="white"/>
+            <polygon points="605,300 620,300 620,200 650,200 650,420 605,420 605,300" class="white"/>
+            <polygon points="650,200 680,200 680,300 695,300 695,420 650,420 650,200" class="white" id="seven"/>
+            <polygon points="695,300 710,300 710,200 725,200 725,300 740,300 740,420 695,420 695,300" class="white" id="eight"/>
+            <polygon points="740,300 755,300 755,200 770,200 770,300 785,300 785,420 740,420 740,300" class="white" id="nine"/>
+            <polygon points="785,300 800,300 800,200 830,200 830,420 785,420 785,300" class="white" id="zero"/>
+            <polygon points="365,200 395,200 395,300 365,300 365,200" class="black"/>
+            <polygon points="410,200 440,200 440,300 410,300 410,200" class="black"/>
+            <polygon points="455,200 485,200 485,300 455,300 455,200" class="black"/>
+            <polygon points="545,200 575,200 575,300 545,300 545,200" class="black"/>
+            <polygon points="590,200 620,200 620,300 590,300 590,200" class="black"/>
+            <polygon points="680,200 710,200 710,300 680,300 680,200" class="black"/>
+            <polygon points="725,200 755,200 755,300 725,300 725,200" class="black"/>
+            <polygon points="770,200 800,200 800,300 770,300 770,200" class="black"/>
+            <text x="350" y="400" font-family="sans-serif" font-size="25px">1</text>
+            <text x="395" y="400" font-family="sans-serif" font-size="25px">2</text>
+            <text x="440" y="400" font-family="sans-serif" font-size="25px">3</text>
+            <text x="485" y="400" font-family="sans-serif" font-size="25px">4</text>
+            <text x="665" y="400" font-family="sans-serif" font-size="25px">7</text>
+            <text x="710" y="400" font-family="sans-serif" font-size="25px">8</text>
+            <text x="755" y="400" font-family="sans-serif" font-size="25px">9</text>
+            <!-- <text x="800" y="400" font-family="sans-serif" font-size="25px">0</text> -->
+          </svg>
+      </div>
+    </div>
+
+    <div class="row ml-md-n5 mt-md-n5">
+      <div class="col-md-2 offset-md-4 mt-md-2">
+        <img id = "img1" src="img/left.png">
+      </div>
+      <div class="col-md-2 offset-md-1 mt-md-2">
+        <img id = "img2" src="img/right.png">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

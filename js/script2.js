@@ -12,8 +12,8 @@ window.onload = function() {
     "4" : document.getElementById("four"),
     "7" : document.getElementById("seven"),
     "8" : document.getElementById("eight"),
-    "9" : document.getElementById("nine"),
-    "0" : document.getElementById("zero")
+    "9" : document.getElementById("nine")
+    // "0" : document.getElementById("zero")
   }
   id = sessionStorage.getItem("ID");
   // console.log(id);
@@ -32,8 +32,8 @@ window.onload = function() {
   next = document.getElementById("next");
   timer = document.getElementById("timer");
   timerText = document.getElementById("timerText");
-  sequence = ["27384910", "4701839", "22", "91471400738983"];//, "3918472", "7194823", "4739128", "", ""];
-  prev_sequence = ["00","49829811273437"]
+  sequence = ["2738491", "4701839", "22", "914714738983"];//, "3918472", "7194823", "4739128", "", ""];
+  prev_sequence = ["11","498298273437"]
   audio = [];
   RTflag = false;
   timedPracticeFlag = false;
@@ -82,15 +82,11 @@ function KeyPressed(key) {
       // PRESS NEXT KEY OF SEQUENCE
       if (RTflag != false) {
         if(plusFlag == null && locked == false) {
-            if (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9" || key == "0") {
+            if (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9") {
             if (temp_sequence[temp_counter] == key) {
               keys[key].style.fill = "lightblue";
               keys[key].style.stroke = "lightblue";
               keys[key].style.outline =  "black solid 1px";
-              // if (key == "0")
-              //   audio[9].play();
-              // else
-              //   audio[Number(key)-1].play();
               playMusic(key);
               instr_txt.innerHTML += ("<b>CORRECT</b>");
               corr_incorr.push("+");
@@ -99,18 +95,11 @@ function KeyPressed(key) {
               keys[key].style.fill = "red";
               keys[key].style.stroke = "red";
               keys[key].style.outline =  "black solid 1px";
-              // if (key == "0")
-              //   audio[9].play();
-              // else
-              //   audio[Number(key)-1].play();
               playMusic(key);
               instr_txt.innerHTML += ("<b>INCORRECT</b>");
               corr_incorr.push("-");
             }
             if(tooSlowFlag != null) {
-              // console.log("clear timeout");
-              // console.log(currState);
-              // console.log("yoyo");
               if(plusFlag == null)  {
                 EndTime = new Date();
                 reactionTimes.push(EndTime - startTime);
@@ -145,7 +134,7 @@ function KeyPressed(key) {
         }
       }
       // PRACTICE, KEY CORRECT
-    else if ((temp_sequence[temp_counter] == key) && (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9" || key == "0")) {
+    else if ((temp_sequence[temp_counter] == key) && (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9")) {
       count += 1;
       keys[key].style.fill = "lightblue";
       keys[key].style.stroke = "lightblue";
@@ -172,21 +161,17 @@ function KeyPressed(key) {
 
     }
     // PRACTICE, KEY INCORRECT
-    else if ((temp_sequence[temp_counter] != key) && (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9" || key == "0")) {
+    else if ((temp_sequence[temp_counter] != key) && (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9")) {
       keys[key].style.fill = "red";
       keys[key].style.stroke = "red";
       keys[key].style.outline =  "black solid 1px";
-      // if (key == "0")
-      //   audio[9].play();
-      // else
-      //   audio[Number(key)-1].play();
       playMusic(key);
       }
   }
 }
 
 function KeyUnpressed(key) {
-  if (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9" || key == "0") {
+  if (key == "1" || key == "2" || key == "3" || key == "4" || key == "7" || key == "8" || key == "9") {
     keys[key].style.fill = "white";
     keys[key].style.stroke = "black";
     keys[key].style.outline =  "none";
@@ -220,7 +205,7 @@ function Flow() {
       }, 5000);
       break;
     case 1:
-      instr_txt.innerHTML = "To play the virtual piano, you will place your left hand fingers on the 1,2,3,4 keyboard keys and your right hand fingers on 7,8,9,0.";
+      instr_txt.innerHTML = "To play the virtual piano, you will place your left hand fingers on the 1,2,3,4 keyboard keys and your right hand fingers on 7,8,9.";
       show(comp_board);
       show(pianoHands);
       hide(keyboard)
@@ -323,7 +308,7 @@ function Flow() {
       }, 6000);
       break;
     case 8:
-      instr_txt.innerHTML = "Here's an example of how the test will proceed. Imagine the sequence is 0-2<br>You will see the following flashed on the next screen: 0 => ?<br>Then you must press 2 with the correct finger as quickly as possible";
+      instr_txt.innerHTML = "Here's an example of how the test will proceed. Imagine the sequence is 1-2<br>You will see the following flashed on the next screen: 1 => ?<br>Then you must press 2 with the correct finger as quickly as possible";
       hide(next);
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
@@ -334,7 +319,7 @@ function Flow() {
       break;
     case 9:
       hide(next);
-      instr_txt.innerHTML = "Let’s practice with this simple 0-2 sequence two times before we test your knowledge of the longer sequence you have been learning.";
+      instr_txt.innerHTML = "Let’s practice with this simple 1-2 sequence two times before we test your knowledge of the longer sequence you have been learning.";
       setTimeout(() => {
         instr_txt.innerHTML += "<br><br>Press SPACEBAR to continue";
         show(next);
@@ -736,8 +721,5 @@ function timeup(x) {
 }
 
 function playMusic(key) {
-  if (key == "0")
-    audio[9].play();
-  else
-    audio[Number(key)-1].play();
+  audio[Number(key)-1].play();
 }

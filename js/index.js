@@ -35,4 +35,29 @@ app.post('/game2', (req, res) => {
         });
 });
 
+app.post('/game3', (req, res) => {
+        var id = req.body.id;
+        var corr_incorr_array = req.body.corr_incorr_array;
+        var reactionTimes_array = req.body.reactionTimes_array;
+        var cycles = req.body.cycles;
+        var date = new Date().getTime();
+        var fileName = "Game3/" + id + date + ".txt";
+        var data = id + "\n" + corr_incorr_array + "\n" + reactionTimes_array + "\n" + cycles;
+        fs.writeFile( fileName, data, (err, data) => {
+                var x = 4;
+        });
+});
+
+app.post('/game4', (req, res) => {
+        var id = req.body.id;
+        var corr_incorr_array = req.body.corr_incorr_array;
+        var reactionTimes_array = req.body.reactionTimes_array;
+        var cycles = req.body.cycles;
+        var date = new Date().getTime();
+        var fileName = "Game4/" + id + date + ".txt";
+        var data = id + "\n" + corr_incorr_array + "\n" + reactionTimes_array + "\n" + cycles;
+        fs.writeFile( fileName, data, (err, data) => {
+                var x = 4;
+        });
+});
 app.listen(port)
